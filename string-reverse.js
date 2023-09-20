@@ -17,3 +17,4 @@ function mergeReverse(str_a, str_b) {
 
 console.log(mergeReverse('123', 'qwerty'));
 console.log(mergeReverse('qwerty', '123'));
+console.log(mergeReverse('1', 'qwerty'));
