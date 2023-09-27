@@ -13,17 +13,17 @@ const binSearch = (arrays, target, start, end) => {
 
     const mid = Math.floor((start + end) / 2);
 
-    if (arrays[mid] === target) return mid;
-    else if (arrays[start]  === target) return start;
-    else if (arrays[end] === target) return end;
+    if (arrays[mid] === target)
+        return mid;
+    if (arrays[start] === target)
+        return start;
+    if (arrays[end] === target)
+        return end;
 
-    if (arrays[mid] > target) {
-        end = mid - 1;
-    } else if (arrays[mid] < target) {
-        start = mid + 1;
-    }
-
-    return binSearch(arrays, target, start, end);
+    if (arrays[mid] > target)
+        return binSearch(arrays, target, start, mid - 1);
+    if (arrays[mid] < target)
+        return binSearch(arrays, target, mid + 1, end);
 };
 
 const findArrayIndex = (array, target) => { 
