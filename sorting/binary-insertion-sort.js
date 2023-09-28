@@ -1,30 +1,46 @@
-function binarySearch(arr, val, start, end) {
-    if (start === end) {
-        if (arr[start] > val) return start;
-        else return start + 1;
+const binarySearch = (arrays, target, left, right) => {
+    if (left > right) {
+        return left;
     }
-    if (start > end) return start;
-    var mid = Math.floor((start + end) / 2);
-    if (arr[mid] < val) return binarySearch(arr, val, mid + 1, end);
-    else if (arr[mid] > val) return binarySearch(arr, val, start, mid - 1);
+
+    if (left === right) { 
+        return (arrays[left] > target) ? left : left + 1;
+    }
+
+    const mid = Math.floor((right + left) / 2);
+
+    if (arrays[mid] > target) {
+        return binarySearch(arrays, target, left, mid - 1);
+    }
+        
+    if (arrays[mid] < target) {
+        return binarySearch(arrays, target,  mid + 1, right);
+    }
+        
+
     return mid;
 }
 
-function binaryInsertionSort(arr) {
-    for (var i = 1; i < arr.length; i++) {
-        var val = arr[i];
-        var j = i - 1;
-        var pos = binarySearch(arr, val, 0, j);
-        while (j >= pos) {
-            arr[j + 1] = arr[j];
-            j--;
+const binaryInsertionSort = (arrays) => {
+    for (let i = 1; i < arrays.length; i++) {
+        let right = i - 1;
+        let target = arrays[i];
+        let pos = binarySearch(arrays, target, 0, right);
+    
+        console.log(i, target, right, pos, arrays);
+        while (pos <= right) {
+            arrays[right + 1] = arrays[right];
+            right--;
         }
-        arr[j + 1] = val;
+
+        arrays[pos] = target;
+        console.log(i, target, right, pos, arrays);
     }
-    return arr;
+    return arrays;
 }
 
-var arr = [37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54];
+//var arr = [37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54];
+var arr = [8,7,3,4,5,6,1,2];
 console.log("Before sorting: " + arr);
 binaryInsertionSort(arr);
 console.log("After sorting: " + arr);
