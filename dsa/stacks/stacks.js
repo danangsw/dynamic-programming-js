@@ -33,3 +33,61 @@ const palindrome = (word) => {
 
 palindrome('letter');
 
+//Creates a stack
+function Stack () { 
+    this.count = 0;
+    this.storage = {};
+
+    //Add value into the stack
+    this.push = (value) => { 
+        this.storage[this.count++] = value;
+    }
+
+    //Remove and return the value at the end of the stack
+    this.pop = () => { 
+        if (this.count === 0) { 
+            return undefined;
+        }
+
+        this.count--;
+        var result = this.storage[this.count];
+        delete this.storage[this.count];
+        return result;
+    }
+
+    this.size = () => { 
+        return this.count;
+    }
+    
+    //Return the value at end of the stack (without pop out it)
+    this.peek = () => { 
+        if (this.count === 0)
+            return undefined;
+        return this.storage[this.count-1];
+    };
+
+    this.list = () => { 
+        return this.storage;
+    };
+}
+
+var stacks = new Stack();
+console.log(stacks.size());
+console.log(stacks.peek());
+console.log(stacks.list());
+stacks.push(1);
+stacks.push(2);
+stacks.push('A');
+stacks.push('B');
+console.log(stacks.size());
+console.log(stacks.peek());
+console.log(stacks.list());
+stacks.pop();
+stacks.pop();
+stacks.pop();
+stacks.pop();
+stacks.pop();
+stacks.pop();
+console.log(stacks.size());
+console.log(stacks.peek());
+console.log(stacks.list());
