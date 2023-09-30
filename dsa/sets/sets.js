@@ -40,7 +40,55 @@ function Sets(list = []) {
     this.size = () => { 
         return collection.length;
     };
+    // this method will return union of two sets
+    this.union = (otherSet) => { 
+        const firstSet = this.values();
+        const secondSet = otherSet.values();
+        const unionList = [...firstSet, ...secondSet];
+        let unionSet = new Sets(unionList);
 
+        return unionSet;
+    }
+    // this method will return the intersection of two sets as a new set
+    this.intersection = (otherSet) => { 
+        let intersectionSet = new Sets();
+        const firstSet = this.values();
+        const secondSet = otherSet.values();
+
+        firstSet.forEach(e => {
+            if (otherSet.has(e)) {
+                intersectionSet.add(e);
+            }
+        });
+
+        secondSet.forEach(e => {
+            if (this.has(e)) {
+                intersectionSet.add(e);
+            }
+        });
+
+        return intersectionSet;
+    }
+    // this method will return the difference of two sets as a new set
+    this.diff = (otherSet) => { 
+        let diffSet = new Sets();
+        const firstSet = this.values();
+        const secondSet = otherSet.values();
+
+        firstSet.forEach(e => {
+            if (!otherSet.has(e)) { 
+                diffSet.add(e);
+            }
+        });
+
+        secondSet.forEach(e => {
+            if (!this.has(e)) { 
+                diffSet.add(e);
+            }
+        });
+        
+        return diffSet;
+    }
     // Set initial value list from main functions list parameter to collection variable
     list.forEach(element => {
         this.add(element);
@@ -70,3 +118,12 @@ mySets.delete('C');
 console.log("Minimum element: " + Math.min(...mySets.values()));
 console.log("Maximum element: " + Math.max(...mySets.values()));
 console.log("Size of the set is: " + mySets.size()); // Printing the size of the set
+
+const aSet = new Sets([0, 1, 2, 3, 4, 5, 6]);
+const bSet = new Sets([4, 5, 6, 7, 8, 9, 0]);
+// Union sets
+console.log('Union', aSet.values(), bSet.values(), aSet.union(bSet).values());
+// Intersection sets
+console.log('Intersection', aSet.values(), bSet.values(), aSet.intersection(bSet).values());
+// Differenece sets
+console.log('Difference', aSet.values(), bSet.values(), aSet.diff(bSet).values());
