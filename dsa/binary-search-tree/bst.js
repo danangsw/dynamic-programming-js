@@ -122,18 +122,37 @@ class BST {
         }
         this.root = removeNode(this.root, data);
     };
+    printOrder() { 
+        function printTree(node, par, pos) { 
+            if (node === null) {
+                return;
+            }
+
+            console.log(par, node.data, pos);
+            printTree(node.left, node.data, 'l');
+            printTree(node.right, node.data, 'r');
+        }
+
+        printTree(this.root);
+    }
 }
 
 const bst = new BST();
+bst.add(7);
+bst.add(8);
+bst.add(18);
+bst.add(10);
+bst.add(9);
 bst.add(4);
 bst.add(2);
 bst.add(6);
 bst.add(1);
 bst.add(3);
 bst.add(5);
-bst.add(7);
-bst.add(8);
-bst.add(18);
+
+//bst.remove(4);
+// bst.remove(6);
+bst.printOrder();
 // console.log(bst.find(18));
 // bst.remove(4);
 // console.log(bst.findMin());
