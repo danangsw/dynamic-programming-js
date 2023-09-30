@@ -135,4 +135,4 @@ console.log('Intersection', aSet.values(), bSet.values(), aSet.intersection(bSet
 // Differenece sets
 console.log('Difference', aSet.values(), bSet.values(), aSet.diff(bSet).values());
 // Validate is subset of other sets
-console.log('Difference', aSet.values(), bSet.values(), bSet.subset(aSet));
+console.log('Subset', aSet.values(), bSet.values(), bSet.subset(aSet));
