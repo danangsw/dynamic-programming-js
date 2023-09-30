@@ -24,6 +24,9 @@ function Queue(list = []) {
     this.size = () => { 
         return collection.length;
     }
+    this.isEmpty = () => { 
+        return (collection.length === 0);
+    }
     list.forEach(e => { 
         this.enqueue(e);
     })
@@ -40,6 +43,6 @@ q.dequeue();
 q.dequeue();
 q.dequeue();
 q.dequeue();
-console.log(q.peek(), q.front(), q.tail(), q.size());
+console.log(q.peek(), q.front(), q.tail(), q.size(), q.isEmpty());
 q.enqueue(0);
-console.log(q.peek(), q.front(), q.tail(), q.size());
+console.log(q.peek(), q.front(), q.tail(), q.size(), q.isEmpty());
