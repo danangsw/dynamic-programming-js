@@ -31,6 +31,7 @@ const palindrome = (word) => {
     }
 };
 
+// Drive code
 palindrome('letter');
 
 //Creates a stack
@@ -71,6 +72,7 @@ function Stack () {
     };
 }
 
+// Drive code
 var stacks = new Stack();
 console.log(stacks.size());
 console.log(stacks.peek());
