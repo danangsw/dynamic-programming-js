@@ -89,6 +89,13 @@ function Sets(list = []) {
         
         return diffSet;
     }
+    // this method will validate if the set is a subset of a other set
+    this.subset = (otherSet) => { 
+        var firstSet = this.values();
+        return firstSet.every((e) => { 
+            return otherSet.has(e);
+        });
+    }
     // Set initial value list from main functions list parameter to collection variable
     list.forEach(element => {
         this.add(element);
@@ -120,10 +127,12 @@ console.log("Maximum element: " + Math.max(...mySets.values()));
 console.log("Size of the set is: " + mySets.size()); // Printing the size of the set
 
 const aSet = new Sets([0, 1, 2, 3, 4, 5, 6]);
-const bSet = new Sets([4, 5, 6, 7, 8, 9, 0]);
+const bSet = new Sets([4, 5, 6, 0]);
 // Union sets
 console.log('Union', aSet.values(), bSet.values(), aSet.union(bSet).values());
 // Intersection sets
 console.log('Intersection', aSet.values(), bSet.values(), aSet.intersection(bSet).values());
 // Differenece sets
 console.log('Difference', aSet.values(), bSet.values(), aSet.diff(bSet).values());
+// Validate is subset of other sets
+console.log('Difference', aSet.values(), bSet.values(), bSet.subset(aSet));
