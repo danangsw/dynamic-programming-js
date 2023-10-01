@@ -14,7 +14,7 @@
  * Delete       | O(1)      | O(n)
  */
 
-// Simple Hashtable
+// Simple Hash
 const hash = (string, max) => { 
     let hash = 0;
     for (let i = 0; i < string.length; i++) {
@@ -23,6 +23,7 @@ const hash = (string, max) => {
     return hash % max;
 };
 
+// Simple Hashtable
 function Hashtable () { 
     let storage = new Array();
     const storageLimit = 6;
