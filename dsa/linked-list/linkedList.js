@@ -31,7 +31,6 @@ class SingleLinkedList {
         this.head = null;
         this.size = 0;
     }
-
     // Insert first node
     insertFirst(data) { 
         this.head = new Node(data, this.head);
@@ -134,6 +133,11 @@ class SingleLinkedList {
         return;
     }
     // Clear list data
+    clearData() {
+        this.head = null;
+        this.size = 0;
+        return;
+    }
     // Print list data
     printListData(separator = ',') { 
         let current = this.head;
@@ -171,17 +175,22 @@ console.log(sll.getDataAt(0));
 console.log(sll.getDataAt(4));
 console.log(sll.getDataAt(8));
 console.log(sll.getDataAt(9));
-//sll.removeAt(0);
-sll.removeAt(-1);
-sll.removeAt(9);
-sll.removeAt(8);
-sll.removeAt(7);
-sll.removeAt(6);
-sll.removeAt(5);
-sll.removeAt(4);
-sll.removeAt(3);
-sll.removeAt(2);
-sll.removeAt(1);
 sll.removeAt(0);
+// sll.removeAt(-1);
+// sll.removeAt(9);
+// sll.removeAt(8);
+// sll.removeAt(7);
+// sll.removeAt(6);
+// sll.removeAt(5);
+// sll.removeAt(4);
+// sll.removeAt(3);
+// sll.removeAt(2);
+// sll.removeAt(1);
+// sll.removeAt(0);
+console.log(sll);
+sll.clearData();
+console.log(sll);
+sll.insertLast(600);
+sll.insertFirst(800);
 console.log(sll);
 sll.printListData(' - ');
