@@ -162,7 +162,6 @@ class DoublyLinkedList {
 
         console.log(array.join(separator));
     };
-
 }
 
 const dll = new DoublyLinkedList();
