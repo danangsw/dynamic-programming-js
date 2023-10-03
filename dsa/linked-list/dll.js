@@ -17,7 +17,7 @@ class Node {
     }
 };
 
-class DoubleLinkedList { 
+class DoublyLinkedList { 
     constructor() { 
         this.head = null;
         this.tail = null;
@@ -25,63 +25,126 @@ class DoubleLinkedList {
     }
     // Insert first node
     insertFirst(data) {
-        const node = new Node(data, null, this.head);
-        
-        if (this.head) { 
-            this.head.prev = node;
-        }
+        let node = new Node(data);
 
-        this.head = node;
+        if (!this.head) {
+            this.head = node;
+            this.tail = node;
+        } else { 
+            node.next = this.head;
+            this.head.prev = node;
+            this.head = node;
+        }
 
         this.size++;
     };
     // Insert last node
     insertLast(data) { 
-        // this.tail = new Node(data, this.tail, null);
+        let node = new Node(data);
 
-        // this.size++;
+        if (!this.head) {
+            this.head = node;
+            this.tail = node;
+        } else { 
+            node.prev = this.tail;
+            this.tail.next = node;
+            this.tail = node;
+        }
+
+        this.size++;
     };
-    // Insert first node
     // Insert at index ( 0 to N-1 node sizes)
+    insertAt(index, element) {
+        if (index > (this.size - 1) || index < 0) {
+            return;
+        }
+        else if (index === 0) { 
+            this.insertFirst(element);
+            return;
+        }
+        else if (index === (this.size - 1)) { 
+            this.insertLast(element);
+            return;
+        }
+
+        let node = new Node(element);
+        let current = this.head;
+        let previous = null;
+
+        let i = 0;
+        while (i++ < index) {
+            previous = current;
+            current = current.next;
+        }
+
+        node.next = current;
+        previous.next = node;
+
+        current.prev = node;
+        node.prev = previous;
+
+        this.size++;
+        return;
+    }
     // Get at index
+    indexOf(index) {
+        if (index > (this.size - 1) || index < 0) {
+            return undefined;
+        }
+
+        let current = this.head;
+        let i = 0;
+        while (i++ < index) {
+            current = current.next;
+        }
+        return current.data;
+    }
     // Remove at index
     // Clear all data
     // Print data
     // Print list data
-    printHead(separator = ',') { 
+    printFromHead(separator = ',') { 
         let current = this.head;
         let array = [];
 
         while (current) { 
-            console.log(current);
+            //console.log(current);
             array.push(current.data);
             current = current.next;
         }
 
         console.log(array.join(separator));
-    }
-
-    printTail(separator = ',') { 
-        let current = this.head;
+    };
+    printFromTail(separator = ',') { 
+        let current = this.tail;
         let array = [];
 
         while (current) { 
-            console.log(current);
+            //console.log(current);
             array.push(current.data);
             current = current.prev;
         }
 
         console.log(array.join(separator));
-    }
+    };
 
 }
 
-const dll = new DoubleLinkedList();
+const dll = new DoublyLinkedList();
 dll.insertFirst(10);
 dll.insertFirst(20);
 dll.insertFirst(30);
 dll.insertFirst(40);
 dll.insertFirst(50);
-//console.log({ dll });
-//dll.printHead();
-dll.printTail();
+dll.insertLast(60);
+dll.insertLast(70);
+dll.insertFirst(80);
+dll.insertAt(-1, 0);
+dll.insertAt(dll.size, 0);
+dll.insertAt(0, 111);
+dll.insertAt(8, 222);
+dll.insertAt(5, 333);
+console.log({ dll });
+dll.printFromHead();
+dll.printFromTail();
+console.log(dll.indexOf(-1), dll.indexOf(0), dll.indexOf(5), dll.indexOf(dll.size-1), dll.indexOf(dll.size));
