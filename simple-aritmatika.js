@@ -81,6 +81,9 @@ const arrayMatikaOptimized = (start, operator, limit) => {
                 results.push(start++);
             }
         }
+        else { 
+            break;
+        }
         increment--;
     }
     return results;
