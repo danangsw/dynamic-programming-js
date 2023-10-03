@@ -101,7 +101,11 @@ class DoublyLinkedList {
     }
     // Remove at index
     // Clear all data
-    // Print data
+    clearData() { 
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    };
     // Print list data
     printFromHead(separator = ',') { 
         let current = this.head;
@@ -144,7 +148,9 @@ dll.insertAt(dll.size, 0);
 dll.insertAt(0, 111);
 dll.insertAt(8, 222);
 dll.insertAt(5, 333);
-console.log({ dll });
 dll.printFromHead();
 dll.printFromTail();
-console.log(dll.indexOf(-1), dll.indexOf(0), dll.indexOf(5), dll.indexOf(dll.size-1), dll.indexOf(dll.size));
+console.log({ dll });
+console.log(dll.indexOf(-1), dll.indexOf(0), dll.indexOf(5), dll.indexOf(dll.size - 1), dll.indexOf(dll.size));
+dll.clearData();
+console.log({ dll });
