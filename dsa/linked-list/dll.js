@@ -100,6 +100,37 @@ class DoublyLinkedList {
         return current.data;
     }
     // Remove at index
+    removeIndexOf(index) {
+        console.log(index, this.size);
+        if (index > (this.size - 1) || index < 0) {
+            return;
+        }
+        else if (index === 0) {
+            this.head = this.head.next;
+            this.head.prev = null;
+        }
+        else if (index === (this.size - 1)) {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+        }
+        else { 
+            let current = this.head;
+            let previous = null;
+            let i = 0;
+            while (i++ < index) { 
+                previous = current;
+                current = current.next;
+            }
+            // console.log({ previous, current });
+            
+            // link previous with current's next - skip it
+            previous.next = current.next;
+            current.next.prev = previous;
+        }
+
+        this.size--;
+        return;
+     }
     // Clear all data
     clearData() { 
         this.head = null;
@@ -148,9 +179,14 @@ dll.insertAt(dll.size, 0);
 dll.insertAt(0, 111);
 dll.insertAt(8, 222);
 dll.insertAt(5, 333);
+console.log({ dll });
 dll.printFromHead();
 dll.printFromTail();
-console.log({ dll });
 console.log(dll.indexOf(-1), dll.indexOf(0), dll.indexOf(5), dll.indexOf(dll.size - 1), dll.indexOf(dll.size));
-dll.clearData();
+// dll.clearData();
+dll.removeIndexOf(5);
+dll.removeIndexOf(0);
+dll.removeIndexOf(dll.size-1);
 console.log({ dll });
+dll.printFromHead();
+dll.printFromTail();
