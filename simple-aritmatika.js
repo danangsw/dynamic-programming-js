@@ -117,4 +117,4 @@ console.log(arrayMatikaOptimized(2, '-', 3));
 console.log(arrayMatikaOptimized(-2, '-', -3));
 console.log(arrayMatikaOptimized(-2, '-', 3));
 console.log(arrayMatikaOptimized(-2, '-', -2));
-console.log(arrayMatikaOptimized(-2, '+', 0));
+console.log(arrayMatikaOptimized(-2, '-', 0));
