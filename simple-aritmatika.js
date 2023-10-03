@@ -18,14 +18,14 @@ const arrayMatika = (start, operator, limit) => {
                 // Penambahan bilangan positif
                 while (limit >= 0) {
                     // geser kanan sebanyak n limit
-                    results = [...results, start++];
+                    results.push(start++);
                     limit--;
                 }
             } else { 
                 // Penambahan bilangan negatif
                 while (limit <= 0) {
                     // geser kiri sebanyak n limit
-                    results = [start--, ...results];
+                    results.unshift(start--)
                     limit++;
                 }
             }
@@ -35,14 +35,14 @@ const arrayMatika = (start, operator, limit) => {
                 // Pengurangan bilangan positif
                 while (limit >= 0) {
                     // geser kiri sebanyak n limit
-                    results = [start--, ...results];
+                    results.unshift(start--)
                     limit--;
                 }
             } else { 
                 // Pengurangan bilangan negatif
                 while (limit <= 0) {
                     // geser kanan sebanyak n limit
-                    results = [...results, start++];
+                    results.push(start++);
                     limit++;
                 }
             }
@@ -53,14 +53,65 @@ const arrayMatika = (start, operator, limit) => {
 
     return results;
 };
- 
-console.log('Penambahan:')
+
+const arrayMatikaOptimized = (start, operator, limit) => {
+    let results = [];
+    let increment = Math.abs(limit);
+
+    while (increment >= 0) {
+        // Operasi '+'
+        if (operator === '+') {
+            // Penambahan(+): geser kanan sebanyak n limit
+            if (limit > 0) {
+                results.push(start++);
+            }
+            // Penambahan(-): geser kiri sebanyak n limit
+            else {
+                results.unshift(start--);
+            }
+        }
+        // Operasi '-'
+        else if (operator === '-') {
+            // Pengurangan(+): geser kiri sebanyak n limit
+            if (limit > 0) {
+                results.unshift(start--);
+            }
+            // Pengurangan(-): geser kanan sebanyak n limit
+            else {
+                results.push(start++);
+            }
+        }
+        increment--;
+    }
+    return results;
+};
+
+// console.log('Penambahan:')
 console.log(arrayMatika(2, '+', -3));
 console.log(arrayMatika(2, '+', 3));
 console.log(arrayMatika(-2, '+', -3));
 console.log(arrayMatika(-2, '+', 3));
+console.log(arrayMatika(-2, '+', 2));
+console.log(arrayMatika(2, '+', 0));
 console.log('Pengurangan:')
 console.log(arrayMatika(2, '-', -3));
 console.log(arrayMatika(2, '-', 3));
 console.log(arrayMatika(-2, '-', -3));
 console.log(arrayMatika(-2, '-', 3));
+console.log(arrayMatika(-2, '-', -2));
+console.log(arrayMatika(-2, '+', 0));
+
+console.log('++Penambahan:')
+console.log(arrayMatikaOptimized(2, '+', -3));
+console.log(arrayMatikaOptimized(2, '+', 3));
+console.log(arrayMatikaOptimized(-2, '+', -3));
+console.log(arrayMatikaOptimized(-2, '+', 3));
+console.log(arrayMatikaOptimized(-2, '+', 2));
+console.log(arrayMatikaOptimized(2, '+', 0));
+console.log('++Pengurangan:')
+console.log(arrayMatikaOptimized(2, '-', -3));
+console.log(arrayMatikaOptimized(2, '-', 3));
+console.log(arrayMatikaOptimized(-2, '-', -3));
+console.log(arrayMatikaOptimized(-2, '-', 3));
+console.log(arrayMatikaOptimized(-2, '-', -2));
+console.log(arrayMatikaOptimized(-2, '+', 0));
