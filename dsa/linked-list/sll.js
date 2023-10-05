@@ -63,7 +63,7 @@ class SingleLinkedList {
             this.insertFirst(data);
             return;
         } 
-        else if (index === (this.size - 1)) {
+        else if (index === this.size) {
             this.insertLast(data);
             return;
         }
@@ -152,45 +152,51 @@ class SingleLinkedList {
     }
 }
 
-// const n1 = new Node(100);
-// console.log(n1);
+const driveCode = () => { 
+    const n1 = new Node(100);
+    console.log(n1);
+    
+    const sll = new SingleLinkedList();
+    // sll.insertFirst(200);
+    // sll.insertFirst(300);
+    sll.insertLast(600);
+    sll.insertLast(500);
+    sll.insertLast(400);
+    sll.insertFirst(700);
+    sll.insertLast(300);
+    sll.insertLast(200);
+    sll.insertLast(100);
+    sll.insertFirst(800);
+    sll.printListData(' - ');
+    sll.insertAt(0, 4);
+    console.log(sll);
+    sll.printListData(' - ');
+    console.log(sll.getDataAt(-1));
+    console.log(sll.getDataAt(0));
+    console.log(sll.getDataAt(4));
+    console.log(sll.getDataAt(8));
+    console.log(sll.getDataAt(9));
+    sll.removeAt(0);
+    // sll.removeAt(-1);
+    // sll.removeAt(9);
+    // sll.removeAt(8);
+    // sll.removeAt(7);
+    // sll.removeAt(6);
+    // sll.removeAt(5);
+    // sll.removeAt(4);
+    // sll.removeAt(3);
+    // sll.removeAt(2);
+    // sll.removeAt(1);
+    // sll.removeAt(0);
+    console.log(sll);
+    sll.clearData();
+    console.log(sll);
+    sll.insertLast(600);
+    sll.insertFirst(800);
+    console.log(sll);
+    sll.printListData(' - ');    
+}
 
-const sll = new SingleLinkedList();
-// sll.insertFirst(200);
-// sll.insertFirst(300);
-sll.insertLast(600);
-sll.insertLast(500);
-sll.insertLast(400);
-sll.insertFirst(700);
-sll.insertLast(300);
-sll.insertLast(200);
-sll.insertLast(100);
-sll.insertFirst(800);
-sll.printListData(' - ');
-sll.insertAt(0, 4);
-console.log(sll);
-sll.printListData(' - ');
-console.log(sll.getDataAt(-1));
-console.log(sll.getDataAt(0));
-console.log(sll.getDataAt(4));
-console.log(sll.getDataAt(8));
-console.log(sll.getDataAt(9));
-sll.removeAt(0);
-// sll.removeAt(-1);
-// sll.removeAt(9);
-// sll.removeAt(8);
-// sll.removeAt(7);
-// sll.removeAt(6);
-// sll.removeAt(5);
-// sll.removeAt(4);
-// sll.removeAt(3);
-// sll.removeAt(2);
-// sll.removeAt(1);
-// sll.removeAt(0);
-console.log(sll);
-sll.clearData();
-console.log(sll);
-sll.insertLast(600);
-sll.insertFirst(800);
-console.log(sll);
-sll.printListData(' - ');
+export {
+    SingleLinkedList
+}

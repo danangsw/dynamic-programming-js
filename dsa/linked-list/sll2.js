@@ -17,6 +17,7 @@
  * - sequential access is slower (elements not in contiguously)
  * */
 
+// Refactored from sll.js
 // Single Linked List
 
 class Node { 
@@ -29,14 +30,21 @@ class Node {
 class SingleLinkedList { 
     constructor() { 
         this.head = null;
-        this.size = 0;
+    }
+    get size () { 
+        let i = 0;
+        let current = this.head;
+        while (current) { 
+            current = current.next;
+            i++;
+        }
+        return i;
     }
     // Insert first node
     insertFirst(data) { 
         const node = new Node(data);
         node.next = this.head;
         this.head = node;
-        this.size++;
     }
     // Insert last node
     insertLast(data) {
@@ -51,7 +59,6 @@ class SingleLinkedList {
             current = current.next;
         }
         current.next = node;
-        this.size++;
     }
     // Insert at index ( 0 to N-1 node sizes)
     insertAt(data, index) { 
@@ -65,7 +72,7 @@ class SingleLinkedList {
             this.insertFirst(data);
             return;
         } 
-        else if (index === (this.size - 1)) {
+        else if (index === this.size) {
             this.insertLast(data);
             return;
         }
@@ -83,7 +90,6 @@ class SingleLinkedList {
             node.next = current;
             previous.next = node;
 
-            this.size++;
             return;
         }
     }
@@ -103,6 +109,21 @@ class SingleLinkedList {
         }
         return current.data;
     }
+    getIndexAt(index) { 
+        if (index < 0) {
+            return undefined;
+        }
+        else if (index > (this.size - 1)) {
+            return undefined;
+        }
+
+        let current = this.head;
+        let i = 0;
+        while (i++ < index) {
+            current = current.next;
+        }
+        return current;
+    }
     // Remove at index
     removeAt(index) { 
         if (index < 0) {
@@ -113,7 +134,6 @@ class SingleLinkedList {
         }
         else if (index === 0) {
             this.head = this.head.next;
-            this.size--
             return;
         } 
 
@@ -125,16 +145,14 @@ class SingleLinkedList {
             previous = current;
             current = current.next;
         }
-        console.log({ current, previous })
+        // console.log({ current, previous })
         previous.next = current.next;
 
-        this.size--;
         return;
     }
     // Clear list data
     clearData() {
         this.head = null;
-        this.size = 0;
         return;
     }
     // Print list data
@@ -151,47 +169,55 @@ class SingleLinkedList {
     }
 }
 
-const sll = new SingleLinkedList();
-sll.insertFirst(200);
-sll.insertFirst(300);
-sll.insertLast(600);
-sll.insertLast(500);
-// sll.insertLast(400);
-// sll.insertFirst(700);
-// sll.insertLast(300);
-// sll.insertLast(200);
-// sll.insertLast(100);
-// sll.insertFirst(800);
-sll.printListData(' - ');
-sll.insertAt(0, 2);
-console.log(sll);
-sll.printListData(' - ');
-console.log(sll.getDataAt(-1));
-console.log(sll.getDataAt(0));
-console.log(sll.getDataAt(2));
-console.log(sll.getDataAt(sll.size-1));
-console.log(sll.getDataAt(sll.size));
-console.log(sll.getDataAt(8));
-console.log(sll.getDataAt(9));
-sll.removeAt(-1);
-sll.removeAt(0);
-sll.removeAt(2);
-sll.removeAt(sll.size - 1);
-sll.removeAt(sll.size);
-// sll.removeAt(9);
-// sll.removeAt(8);
-// sll.removeAt(7);
-// sll.removeAt(6);
-// sll.removeAt(5);
-// sll.removeAt(4);
-// sll.removeAt(3);
-// sll.removeAt(2);
-// sll.removeAt(1);
-// sll.removeAt(0);
-// console.log(sll);
-// sll.clearData();
-// console.log(sll);
-// sll.insertLast(600);
-// sll.insertFirst(800);
-// console.log(sll);
-sll.printListData(' - ');
+const driveCode = () => { 
+    const sll = new SingleLinkedList();
+    sll.insertFirst(200);
+    sll.insertFirst(300);
+    sll.insertLast(600);
+    sll.insertLast(500);
+    // sll.insertLast(400);
+    // sll.insertFirst(700);
+    // sll.insertLast(300);
+    // sll.insertLast(200);
+    // sll.insertLast(100);
+    // sll.insertFirst(800);
+    // sll.printListData(' - ');
+    // sll.insertAt(0, 2);
+    // console.log(sll);
+    // sll.printListData(' - ');
+    // console.log(sll.getDataAt(-1));
+    // console.log(sll.getDataAt(0));
+    // console.log(sll.getDataAt(2));
+    // console.log(sll.getDataAt(sll.size-1));
+    // console.log(sll.getDataAt(sll.size));
+    // console.log(sll.getDataAt(8));
+    // console.log(sll.getDataAt(9));
+    // sll.removeAt(-1);
+    // sll.removeAt(0);
+    // sll.removeAt(2);
+    // sll.removeAt(sll.size - 1);
+    // sll.removeAt(sll.size);
+    // sll.removeAt(9);
+    // sll.removeAt(8);
+    // sll.removeAt(7);
+    // sll.removeAt(6);
+    // sll.removeAt(5);
+    // sll.removeAt(4);
+    // sll.removeAt(3);
+    // sll.removeAt(2);
+    // sll.removeAt(1);
+    // sll.removeAt(0);
+    // console.log(sll);
+    sll.clearData();
+    // console.log(sll);
+    // sll.insertLast(600);
+    // sll.insertFirst(800);
+    console.log(sll.size);
+    sll.printListData(' - ');
+} 
+
+// driveCode();
+
+export {
+    SingleLinkedList
+}
