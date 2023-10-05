@@ -90,27 +90,56 @@ function verifySorted(list) {
     return (list[0] < list[1]) && verifySorted(list.slice(1));
 }
 
-function uniqueRandomNumberArray(start, end, len) { 
+// Overall run O(n) times
+function uniqueRandomNumbers(start, end, len) { 
     let list = [];
     let results = [];
 
+    // O(n)
     for (let i = start; i <= end; i++) {
         list.push(i);
     }
 
-    for (let i = 0; i < len; i++) {
-        const randIdx = Math.floor(Math.random() * list.length);
-        results.push(list[randIdx]);
-        list.splice(randIdx, 1);
+    // Splice array
+    // O(log n)
+    // for (let i = 0; i < len; i++) {
+    //     const randIdx = Math.floor(Math.random() * list.length);
+    //     results.push(list[randIdx]);
+    //     list.splice(randIdx, 1);
+    // }
+
+    // Shuffle list - optimized
+    // O(n)
+    for (let i = list.length - 1; i > 0; i--) { 
+        let j = Math.floor(Math.random() * (i + 1));
+        // console.log({i, j}, {ni: list[i], nj: list[j]});
+        [list[i], list[j]] = [list[j], list[i]];
     }
+
+    // O(n)
+    results = list.slice(0, len);
+
     return results;
 }
 
 // Drive code
-for (let index = 10; index < 15; index++) {
-    let ls = uniqueRandomNumberArray(1, 100, index)
+for (let index = 2; index < 19; index++) {
+    let ls = uniqueRandomNumbers(1, 20, index)
     let lss = mergeSort(ls);
     console.log('+++');
-    console.log(ls, verifySorted(ls));
-    console.log(lss, verifySorted(lss));
+    //console.log(ls, verifySorted(ls));
+    //console.log(lss, verifySorted(lss));
+    console.log(verifySorted(lss));
+    //break;
 }
+
+// // Create an array of numbers from 10 to 20
+// let numbers = Array.from({ length: 11 }, (_, i) => i + 10); 
+// // Shuffle the array to get unique random numbers
+// // O(n)
+// for (let i = numbers.length - 1; i > 0; i--) {  
+//     let j = Math.floor(Math.random() * (i + 1));
+//     // console.log({i, j}, {ni: numbers[i], nj: numbers[j]});
+//     [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+// }
+// console.log(numbers);
