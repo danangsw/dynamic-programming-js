@@ -83,15 +83,34 @@ function mergeSortList(left, right) {
 function verifySorted(list) { 
     const len = list.length;
 
-    if ((len <= 1) || (list[0] < list[1])) {
+    if ((len <= 1)) {
         return true;
     }
 
-    return verifySorted(list.slice(1));
+    return (list[0] < list[1]) && verifySorted(list.slice(1));
+}
+
+function uniqueRandomNumberArray(start, end, len) { 
+    let list = [];
+    let results = [];
+
+    for (let i = start; i <= end; i++) {
+        list.push(i);
+    }
+
+    for (let i = 0; i < len; i++) {
+        const randIdx = Math.floor(Math.random() * list.length);
+        results.push(list[randIdx]);
+        list.splice(randIdx, 1);
+    }
+    return results;
 }
 
 // Drive code
-const ls = [5, 7, 1, 2, 9, 6, 8, 3, 4, 11, 10, 15, 14, 13, 12];
-const lss = mergeSort(ls);
-console.log(ls, verifySorted(ls));
-console.log(lss, verifySorted(lss));
+for (let index = 10; index < 15; index++) {
+    let ls = uniqueRandomNumberArray(1, 100, index)
+    let lss = mergeSort(ls);
+    console.log('+++');
+    console.log(ls, verifySorted(ls));
+    console.log(lss, verifySorted(lss));
+}
