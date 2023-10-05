@@ -1,0 +1,20 @@
+{
+  "name": "dynamic-programming",
+  "version": "1.0.0",
+  "description": "Belajar dynamic programming javascript dan node",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danangsw/dynamic-programming-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danangsw/dynamic-programming-js/issues"
+  },
+  "homepage": "https://github.com/danangsw/dynamic-programming-js#readme"
+}
