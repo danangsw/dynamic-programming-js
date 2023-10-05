@@ -53,7 +53,7 @@ function splitList(list = []) {
  * Merge two list and sorting 
  * Return a new merged list
  * 
- * Runs overall O(n) time
+ * Runs in O(n) time
  * @param {*} param0 
  */
 function mergeSortList(left, right) { 
