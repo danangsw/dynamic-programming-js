@@ -2,6 +2,7 @@
  * Arrow Functions
  * Statement Bodies
  * More expressive closure syntax
+ * http://es6-features.org/#StatementBodies
  */
 
 const evens = [2, 4, 6, 8, 10];
