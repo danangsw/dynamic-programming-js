@@ -2,6 +2,7 @@
  * Constants
  * Support for constants (also known ad "immutable variables"), i.e, variables which cannot be reassigned new value.
  * Notice: this only makes the varible itself immutable, not its assigned content.
+ * http://es6-features.org/#Constants
  */
 
 const PI = 3.141593;
