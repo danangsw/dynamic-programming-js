@@ -19,8 +19,8 @@ function birthdayBar(s, d, m) {
     let res = 0;
     for (let i = 1; i < s.length; i++)
     {
-        const suma = s.slice(i - 1, i + (m - 1));
-        const sumd = suma?.reduce((a, b) => a + b);
+        const sliced = s.slice(i - 1, i + (m - 1));
+        const sumd = sliced?.reduce((a, b) => a + b);
         //console.log({suma, sumd})
         if (sumd === d) res++;
     }
