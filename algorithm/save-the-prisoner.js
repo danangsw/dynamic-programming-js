@@ -14,7 +14,6 @@ function saveThePrisoner(n, m, s) {
     // Write your code here
     const r = (s + (m - 1)) % n;
     return r === 0 ? n : r
-    //return (m % ((n - s) + 1));
 }
 
 // Drive Code
