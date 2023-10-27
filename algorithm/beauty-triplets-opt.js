@@ -13,33 +13,11 @@ function beautifulTriplets(d, arr) {
     // Write your code here
     const timelog = 'timelog_' + Math.random();
     console.time(timelog)
-    
     let countTrip = 0;
     arr.forEach((a, i) => {
-        //console.log(`${i}${a}>`)
-        //console.log(i, '....', arr[i + 1] - a)
-        if (arr[i + 1] - a <= d) { 
-            let cnt = 0;
-            let tempA = a;
-
-            for (const b of arr.slice(i + 1)) { 
-                // console.log((b - tempA) , i)
-                if ((b - tempA) > d) break;
-                else if ((b - tempA) === d) { 
-                    // console.log('------------------', cnt)
-                    tempA = b;
-                    cnt++;
-                    if (cnt === 2) { 
-                        countTrip++;
-                        // console.log('xxxxxxxxxxxxxxxxxx', cnt)
-                        break;
-                    }
-                }
-            }
-            //console.log('....', cnt)
-        }
+        if ((arr.indexOf((a + d)) > -1) && arr.indexOf((a + (2*d))) > -1)
+            countTrip++;
     });
-
     console.timeLog(timelog);
     return countTrip;
 }
