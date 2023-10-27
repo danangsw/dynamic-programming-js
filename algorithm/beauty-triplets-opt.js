@@ -15,7 +15,7 @@ function beautifulTriplets(d, arr) {
     console.time(timelog)
     let countTrip = 0;
     arr.forEach((a, i) => {
-        if ((arr.indexOf((a + d)) > -1) && arr.indexOf((a + (2*d))) > -1)
+        if ((arr.indexOf(a + d) > -1) && arr.indexOf(a + 2 * d) > -1)
             countTrip++;
     });
     console.timeLog(timelog);
