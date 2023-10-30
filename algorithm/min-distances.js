@@ -13,8 +13,7 @@ function minimumDistances(a) {
 
     a.forEach((e, i) => {
         for (let j = (i + 1); j < a.length; j++) {
-            const v = a[j];
-             if (e === v) {
+             if (e === a[j]) {
                 if (j - i < min) { 
                     min = j - i;
                 }
