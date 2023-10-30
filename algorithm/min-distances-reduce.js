@@ -9,24 +9,16 @@
 
 function minimumDistances(a) {
     // Write your code here
-    let min = Number.MAX_SAFE_INTEGER;
+    const min = a.reduce((min, e, i) => {
+        const j = a.findIndex((v, j) => v === e && j > i) - i;
+        if (j < min && j > 0) min = j;
+        return min
+    }, Number.MAX_SAFE_INTEGER);
 
-    a.forEach((e, i) => {
-        for (let j = (i + 1); j < a.length; j++) {
-            const v = a[j];
-             if (e === v) {
-                if (j - i < min) { 
-                    min = j - i;
-                }
-                break;
-            }
-        }
-    });
-
-    return min === Number.MAX_SAFE_INTEGER ? -1 : min;
+    return min === Number.MAX_SAFE_INTEGER ? -1: min;
 }
 
 // Drive code
 console.log(minimumDistances([7, 1, 3, 4, 1, 7])); //. output: 3
 console.log(minimumDistances([3, 2, 1, 2, 3])); //. output: 2
-console.log(minimumDistances([1,2,3,4,10])); //. output: -1
+console.log(minimumDistances([1, 2, 3, 4, 10])); //. output: -1
