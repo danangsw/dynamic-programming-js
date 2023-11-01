@@ -17,7 +17,7 @@ function cavityMap(grid) {
 
     for (const item of grid) {
         map.push(item.split(''));
-        result.push(item);
+        result.push(item.split(''));
     }
 
     for (let i = 0; i < len; i++) {
@@ -28,9 +28,11 @@ function cavityMap(grid) {
             const jl = map[i][j - 1] === undefined ? Number.MAX_VALUE : parseInt(map[i][j - 1]);
             const jr = map[i][j + 1] === undefined ? Number.MAX_VALUE : parseInt(map[i][j + 1]);
             
-            if (ij > iu && ij > ib && ij > jl && ij > jr)
-                result[i] = `${result[i].slice(0, j)}X${result[i].slice(j + 1)}`;
+            if (ij > iu && ij > ib && ij > jl && ij > jr) { 
+                result[i][j] = 'X';
+            }
         }
+        result[i] = result[i].join('');
     }
 
     return result;
