@@ -19,18 +19,17 @@ function gridSearch(G: string[], P: string[]): string {
 
         const mapMi = new Map<number, number>();
         for (let j = i, k = 0; j < (i + pxlen); j++, k++) {
-            if (G[j]) { 
-                let index = G[j].indexOf(P[k]);
-                while (index !== -1) {
-                    mapMi.set(index, mapMi.has(index) ? (mapMi.get(index) as number + 1) : 1);
-                    if (mapMi.get(index) === pxlen) { 
-                        return "YES";
-                    }
-
-                    index = G[j].indexOf(P[k], index + 1);
+            if (!G[j]) break;
+            
+            let index = G[j].indexOf(P[k]);
+            while (index !== -1) {
+                mapMi.set(index, mapMi.has(index) ? (mapMi.get(index) as number + 1) : 1);
+                if (mapMi.get(index) === pxlen) { 
+                    return "YES";
                 }
+
+                index = G[j].indexOf(P[k], index + 1);
             }
-            else break;
         }
     }
 
