@@ -10,34 +10,31 @@
 
 function gridSearch(G: string[], P: string[]): string {
     // Write your code here
-    let result: boolean = false;
-    const matchedSet = new Set<number>();
     const pxlen = P.length;
 
-    G.forEach((e, i) => {
-        if ( e.search(P[0]) > -1) matchedSet.add(i);
-    });
+    for (let i = 0; i < G.length; i++) {
+        const el = G[i];
 
-    for (const el of matchedSet.values()) {
+        if (el.search(P[0]) === -1) continue;
+
         const mapMi = new Map<number, number>();
-        for (let i = el, j = 0; i < (el + pxlen); i++, j++) {
-            if (G[i]) { 
-                let index = G[i].indexOf(P[j]);
+        for (let j = i, k = 0; j < (i + pxlen); j++, k++) {
+            if (G[j]) { 
+                let index = G[j].indexOf(P[k]);
                 while (index !== -1) {
                     mapMi.set(index, mapMi.has(index) ? (mapMi.get(index) as number + 1) : 1);
                     if (mapMi.get(index) === pxlen) { 
-                        result = true;
-                        break;
+                        return "YES";
                     }
 
-                    index = G[i].indexOf(P[j], index + 1);
+                    index = G[j].indexOf(P[k], index + 1);
                 }
             }
             else break;
         }
     }
 
-    return result ? 'YES' : 'NO'
+    return "NO";
 }
 
 let g: string[] = [];
