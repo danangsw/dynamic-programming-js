@@ -1,4 +1,6 @@
 /**
+ * https://www.hackerrank.com/challenges/manasa-and-stones/problem
+ * 
  * Complete the stones function in the editor below.
  * stones has the following parameter(s):
  * 
