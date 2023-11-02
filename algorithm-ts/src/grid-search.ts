@@ -19,24 +19,21 @@ function gridSearch(G: string[], P: string[]): string {
     });
 
     for (const el of matchedSet.values()) {
-        const mapMi = new Map();
+        const mapMi = new Map<number, number>();
         for (let i = el, j = 0; i < (el + pxlen); i++, j++) {
-            const idx: number[] = [];
             if (G[i]) { 
                 let index = G[i].indexOf(P[j]);
                 while (index !== -1) {
-                    if (!mapMi.has(index))
-                        mapMi.set(index, 1);
-                    else
-                        mapMi.set(index, mapMi.get(index) + 1);
-
+                    mapMi.set(index, mapMi.has(index) ? (mapMi.get(index) as number + 1) : 1);
                     if (mapMi.get(index) === pxlen) { 
                         result = true;
                         break;
                     }
+
                     index = G[i].indexOf(P[j], index + 1);
                 }
             }
+            else break;
         }
     }
 
