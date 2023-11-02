@@ -12,11 +12,16 @@
 
 function stones(n: number, a: number, b: number): number[] {
     // Write your code here
+    if (a === b) return [((n - 1) * a)];
+    
     const resultSet = new Set<number>();
+
+    [a, b] = [Math.min(a, b), Math.max(a, b)];
+
     for (let i = 0; i < n; i++) { 
         let sumNumb = 0
         for (let j = 1; j < n; j++) {
-            sumNumb += ((i + j ) < n) ? (a > b ? b: a) : (a > b ? a : b);
+            sumNumb += ((i + j) < n) ? a : b;
         }
         resultSet.add(sumNumb);
     }
