@@ -23,8 +23,6 @@ function bomberMan(n: number, grid: string[]): string[] {
         Second = 2,
         Third = 3
     }
-
-    const bomMap = new Map();
     const plantingForm:string[] = [];
     const detonateForm:string[] = [];
     const finalFrom:string[] = [];
@@ -44,9 +42,6 @@ function bomberMan(n: number, grid: string[]): string[] {
 
         // find bomb indexes
         let charAt = item.indexOf(B); 
-        let gridAt = new Set(); // current index list
-        let gridBeforeAt = new Set(); // top index list
-        let gridAfterAt = new Set(); // bottom index list
         
         while (charAt !== -1) {
             // Set detonate indexes
@@ -58,50 +53,20 @@ function bomberMan(n: number, grid: string[]): string[] {
             detonateForm[i] = replaceAt(detonateForm[i], charAt, C);
 
             if (topIdx > -1) { 
-                // insert or update
-                // if (bomMap.has(topIdx)) {
-                //     gridBeforeAt = bomMap.get(topIdx)
-                // }
-                // gridBeforeAt.add(charAt);
-                // bomMap.set(topIdx, gridBeforeAt);
-
                 if (detonateForm[topIdx]) { 
                     detonateForm[topIdx] = replaceAt( detonateForm[topIdx], charAt, C);
                 }
             }
             
             if (leftIdx > -1) { 
-                // insert or update
-                // if (bomMap.has(i)) {
-                //     gridAt = bomMap.get(i)
-                // }
-                // gridAt.add(charAt);
-                // gridAt.add(leftIdx);
-                // bomMap.set(i, gridAt);
-
                 detonateForm[i] = replaceAt( detonateForm[i], leftIdx, C);
             }
 
             if (rightIdx > -1) { 
-                // insert or update
-                // if (bomMap.has(i)) {
-                //     gridAt = bomMap.get(i)
-                // }
-                // gridAt.add(charAt);
-                // gridAt.add(rightIdx);
-                // bomMap.set(i, gridAt);
-
                 detonateForm[i] = replaceAt( detonateForm[i], rightIdx, C);
             }
            
             if (bottomIdx > -1) { 
-                // insert or update
-                // if (bomMap.has(bottomIdx)) {
-                //     gridAfterAt = bomMap.get(bottomIdx)
-                // }
-                // gridAfterAt.add(charAt);
-                // bomMap.set(bottomIdx, gridAfterAt);
-
                 if (!detonateForm[bottomIdx]) { 
                     detonateForm.push(replaceAt(fillBomb, charAt, C));
                 }
@@ -113,28 +78,28 @@ function bomberMan(n: number, grid: string[]): string[] {
             charAt = item.indexOf(B, charAt + 1);
         }
         // Set initial detonate form indexes
-        // 
-        // console.log({i, bomMap});
     }
-    // Detonated the others neighboor indexes
-
-    console.log({bomMap, plantingForm, detonateForm});
+    //console.log({ bomMap, plantingForm, detonateForm });
     
-    const finalState: number = n % State.Third;
+    // 2. After 1 second, Bomberman does nothing.
+    if (n === State.First) { 
+        finalFrom.push(...grid);
+        return finalFrom;
+    }
+    
+    const finalState: number = n % State.Second;
     switch (finalState) {
-        case 1:
-            // 2. After 1 second, Bomberman does nothing.
-        case 2:
-            // 3. After 2 second, Bomberman plants bombs in all cells without bombs, thus filling the whole grid with bombs. No bombs detonate at this point.
+        case 0:
+            // 3. After 2 second, Bomberman plants bombs in all cells without bombs, 
+            // thus filling the whole grid with bombs.No bombs detonate at this point.
             finalFrom.push(...plantingForm);
             break;
-        case 0:
-            // 4. After 3 second, any bombs planted exactly 3 seconds ago will detonate. Here, Bomberman stands back and observes.
+        case 1:
+            // 4. After 3 second, any bombs planted exactly 3 seconds ago will detonate. 
+            // Here, Bomberman stands back and observes.
             finalFrom.push(...detonateForm);
             break;
-        default:
             // 5. Bomberman then repeats steps 3 and 4 indefinitely.
-            break;
     }
 
     return finalFrom;
@@ -164,5 +129,10 @@ let tc: string[];
 // tc = [ '...', '.O.', '...' ];
 // console.log(bomberMan(6, tc)); // O.O, ..., O.O
 
-tc = [ '.......', '...O.O.', '....O..', '..O....', 'OO...OO', 'OO.O...'];
+tc = ['.......', '...O.O.', '....O..', '..O....', 'OO...OO', 'OO.O...'];
+console.log(bomberMan(1, tc)); // ......., ...O.O., ...OO.., ..OOOO., OOOOOOO, OOOOOOO
+console.log(bomberMan(2, tc)); // ......., ...O.O., ...OO.., ..OOOO., OOOOOOO, OOOOOOO
+console.log(bomberMan(3, tc)); // ......., ...O.O., ...OO.., ..OOOO., OOOOOOO, OOOOOOO
+console.log(bomberMan(4, tc)); // ......., ...O.O., ...OO.., ..OOOO., OOOOOOO, OOOOOOO
 console.log(bomberMan(5, tc)); // ......., ...O.O., ...OO.., ..OOOO., OOOOOOO, OOOOOOO
+console.log(bomberMan(6, tc)); // ......., ...O.O., ...OO.., ..OOOO., OOOOOOO, OOOOOOO
