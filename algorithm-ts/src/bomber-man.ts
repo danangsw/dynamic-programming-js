@@ -18,21 +18,8 @@ function bomberMan(n: number, grid: string[]): string[] {
 // Driven code
 let tc: string[];
 
-tc = [
-    '.......',
-    '...O...',
-    '....O..',
-    '.......',
-    'OO.....',
-    'OO.....'
-];
-console.log(tc); // OOO.OOO, OO...OO, OOO...O, ..OO.OO, ...OOOO, ...OOOO
+tc = [ '.......', '...O...', '....O..', '.......', 'OO.....', 'OO.....'];
+console.log(bomberMan(3, tc)); // OOO.OOO, OO...OO, OOO...O, ..OO.OO, ...OOOO, ...OOOO
 
-tc = [
-    '...',
-    '.O.',
-    '...'
-];
-console.log(tc); // O.O, ..., O.O
-
-
+tc = [ '...', '.O.', '...' ];
+console.log(bomberMan(3, tc)); // O.O, ..., O.O
