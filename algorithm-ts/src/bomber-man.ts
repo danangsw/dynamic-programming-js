@@ -86,7 +86,7 @@ function plantingBomb(grid: string[]): string[] {
     const ilen = grid[0].length;
     const initialForm: string[] = [...grid];
     const plantingForm: string[] = [];
-    
+
     for (let i = 0; i < initialForm.length; i++) {
         // Filling all cells without bombs
         let fillBomb = String().padStart(ilen, B);
@@ -98,7 +98,7 @@ function plantingBomb(grid: string[]): string[] {
 
 function bomberMan(n: number, grid: string[]): string[] {
     // Write your code here
-    // console.log(n, '------------')
+    console.log(n, '------------')
 
     const plantingForm:string[] = [...plantingBomb(grid)];
     let initialForm: string[] = [...grid];
@@ -119,7 +119,6 @@ function bomberMan(n: number, grid: string[]): string[] {
     // 4. After 3 second, any bombs planted exactly 3 seconds ago will detonate.
     // Here, Bomberman stands back and observes.
     // 5. Bomberman then repeats steps 3 and 4 indefinitely.
-    
     // Generated denotated first form
     // Generated denotated second form
     for (let i = 0; i < 2; i++) {
@@ -130,7 +129,7 @@ function bomberMan(n: number, grid: string[]): string[] {
         finalForm = detonateForms[0]
     else
         finalForm = detonateForms[1]
-    
+
     return finalForm;
 }
 
@@ -164,5 +163,6 @@ console.log(bomberMan(10, tc));
 console.log(bomberMan(11, tc)); 
 console.log(bomberMan(12, tc)); 
 console.log(bomberMan(13, tc)); 
+console.log(bomberMan(1000000000001, tc)); 
 
 console.timeLog('test_time')
