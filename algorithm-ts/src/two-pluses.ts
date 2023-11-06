@@ -1,3 +1,5 @@
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
+
 /**
  * https://www.hackerrank.com/challenges/two-pluses/problem
  * 
@@ -24,18 +26,17 @@ function twoPluses(grid: string[]): number {
         }
     }
 
-    // Convert to numeric items
     const defGridNumerics = String().padStart(ilen, '0')
         .split('').map(c => parseInt(c));
 
     for (const val of setGrid) {
         let items: number[][] = [];
         for (const item of grid) { 
-            let gridItems = [...defGridNumerics];            
+            let gridItems = [...defGridNumerics];
+            
             let charAt = item.indexOf(val as string); 
-        
             while (charAt !== -1) {
-                // Set detonate indexes
+                // Set indexes value
                 gridItems[charAt] = 1;
                 // Find next index           
                 charAt = item.indexOf(val as string, charAt + 1);
@@ -46,14 +47,39 @@ function twoPluses(grid: string[]): number {
 
         mapGrid.set(val, items)
     }
-    console.log(mapGrid);
 
-    const maxPlus:number[] = [1, 1];
-    for (const [key, item] of mapGrid) { 
-        // Calculate the largest SUM of contiguos subarray
-       
+    const maxPlus: number[] = [1, 1];
+    
+    const goodCells = mapGrid.get('G') as number[][];
+
+     // Initializing all four arrays of left, right, up and down
+    const left: number[][] = [];
+    const up: number[][] = [];
+    const right: number[][] = [];
+    const down: number[][] = [];
+    for (const i of grid) {
+        left.push([...defGridNumerics]);
+        up.push([...defGridNumerics]);
+        right.push([...defGridNumerics]);
+        down.push([...defGridNumerics]);
     }
 
+    for (let i = 0; i < glen; i++) {
+        for (let j = 0; j < ilen; j++) {
+            left[i][j] = ((j !== 0) ? left[i][j - 1] : 0) + goodCells[i][j];
+            up[i][j] = ((i !== 0) ? up[i - 1][j] : 0) + goodCells[i][j];
+       }
+    }
+
+    for (let i = glen - 1; i >= 0; i--) {
+        for (let j = ilen - 1; j >= 0; j--) {
+            right[i][j] = (j !== ilen - 1 ? right[i][j+1] : 0)  + goodCells[i][j];
+            down[i][j] = (i !== glen - 1 ? down[i + 1][j] : 0) + goodCells[i][j];
+       }
+    }
+
+    console.log({goodCells, right, down, left, up})
+   
     return maxPlus[0] * maxPlus[1]
 }
 
@@ -69,6 +95,6 @@ function maxTwoPlus(arr: number[][]): number[] {
 }
 
 // Drive code
-console.log(twoPluses(['GGGGGG', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
-console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
-console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 25
+console.log(twoPluses(['BBBBBB', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
+// console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
+// console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 25
