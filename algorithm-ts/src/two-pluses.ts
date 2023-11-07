@@ -80,26 +80,29 @@ function twoPluses(grid: string[]): number {
        }
     }
 
-    const minCellSet = new Set();
+    const minCellSet:number[] = [];
     const minGrid: number[][] = [];
     for (let i = 0; i < glen; i++) {
         const items: number[] = [];
         for (let j = 0; j < ilen; j++) {
             const cell = Math.min(left[i][j], up[i][j], right[i][j], down[i][j]);
             items.push(cell);
-            minCellSet.add(cell);
+            minCellSet.push(cell);
         }
         minGrid.push([...items])
     }
 
-    const maxPlus: number[] = Array.from(minCellSet).filter(e => e as number > 0).sort() as number[];
-    
-    const maxLimit = (maxPlus.length - 2) < 0 ? 0 : (maxPlus.length - 2);
+    const maxPlus: number[] = minCellSet.sort();
     let totalAreas = 1;
-    for (let i = maxPlus.length - 1; i >= maxLimit; i--){
-        totalAreas *= ((maxPlus[i] - 1) * 4) + 1
-    }
+    let limit = 2;
+    for (let i = maxPlus.length - 1; i >= 0;){
+        const item = maxPlus[i] > 0 ? maxPlus[i] : 1;
+        totalAreas *= ((item - 1) * 4) + 1
 
+        i -= (maxPlus[i] + 1);
+        limit--;
+        if (limit === 0) break;
+    }
     // console.log({ goodCells, right, down, left, up, minGrid, maxPlus, totalAreas })
 
     return totalAreas;
@@ -109,8 +112,8 @@ function twoPluses(grid: string[]): number {
 // console.log(twoPluses(['BBBGBBB', 'BBBGBBB', 'GGGGGGG', 'BBBGBBB', 'BBBGBBB', 'BBBGBBB']));
 // console.log(twoPluses(['BBBGGB', 'GGBGGB', 'GGGGGG', 'GGBGGB', 'GGGGGG'])); // 5
 // console.log(twoPluses(['GGGGGG', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
-// console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
-// console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 25
+console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
+console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 
 console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 0
 console.log(twoPluses(['GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 45
 console.log(twoPluses(['GGGGGG', 'GGGGGG', 'BBBBBB', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 5
