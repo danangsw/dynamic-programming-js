@@ -47,10 +47,10 @@ function twoPluses(grid: string[]): number {
 
         mapGrid.set(val, items)
     }
-
-    const maxPlus: number[] = [1, 1];
     
     const goodCells = mapGrid.get('G') as number[][];
+    if (!goodCells || goodCells.length === 0)
+        return 0;
 
      // Initializing all four arrays of left, right, up and down
     const left: number[][] = [];
@@ -66,35 +66,52 @@ function twoPluses(grid: string[]): number {
 
     for (let i = 0; i < glen; i++) {
         for (let j = 0; j < ilen; j++) {
-            left[i][j] = ((j !== 0) ? left[i][j - 1] : 0) + goodCells[i][j];
-            up[i][j] = ((i !== 0) ? up[i - 1][j] : 0) + goodCells[i][j];
+            const cell = goodCells[i][j];
+            left[i][j] = ((j !== 0) ? (cell > 0 ? left[i][j - 1] : 0) : 0) + cell;
+            up[i][j] = ((i !== 0) ? (cell > 0 ? up[i - 1][j] : 0) : 0) + cell;
        }
     }
 
     for (let i = glen - 1; i >= 0; i--) {
         for (let j = ilen - 1; j >= 0; j--) {
-            right[i][j] = (j !== ilen - 1 ? right[i][j+1] : 0)  + goodCells[i][j];
-            down[i][j] = (i !== glen - 1 ? down[i + 1][j] : 0) + goodCells[i][j];
+            const cell = goodCells[i][j];
+            right[i][j] = (j !== ilen - 1 ? (cell > 0 ? right[i][j + 1] : 0) : 0) + goodCells[i][j];
+            down[i][j] = (i !== glen - 1 ? (cell > 0 ? down[i + 1][j] : 0) : 0) + goodCells[i][j];
        }
     }
 
-    console.log({goodCells, right, down, left, up})
-   
-    return maxPlus[0] * maxPlus[1]
-}
+    const minCellSet = new Set();
+    const minGrid: number[][] = [];
+    for (let i = 0; i < glen; i++) {
+        const items: number[] = [];
+        for (let j = 0; j < ilen; j++) {
+            const cell = Math.min(left[i][j], up[i][j], right[i][j], down[i][j]);
+            items.push(cell);
+            minCellSet.add(cell);
+        }
+        minGrid.push([...items])
+    }
 
-function maxTwoPlus(arr: number[][]): number[] { 
-    let max:number[] = [1, 1];
+    const maxPlus: number[] = Array.from(minCellSet).filter(e => e as number > 0).sort() as number[];
+    
+    const maxLimit = (maxPlus.length - 2) < 0 ? 0 : (maxPlus.length - 2);
+    let totalAreas = 1;
+    for (let i = maxPlus.length - 1; i >= maxLimit; i--){
+        totalAreas *= ((maxPlus[i] - 1) * 4) + 1
+    }
 
-    // Initializing all four arrays of left, right, up and down
-    // Initializing up left and up
-    // Initializing up right and down
-    // Calculating the value of Maximum PLUS (+) sign
+    // console.log({ goodCells, right, down, left, up, minGrid, maxPlus, totalAreas })
 
-    return max;
+    return totalAreas;
 }
 
 // Drive code
-console.log(twoPluses(['BBBBBB', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
+// console.log(twoPluses(['BBBGBBB', 'BBBGBBB', 'GGGGGGG', 'BBBGBBB', 'BBBGBBB', 'BBBGBBB']));
+// console.log(twoPluses(['BBBGGB', 'GGBGGB', 'GGGGGG', 'GGBGGB', 'GGGGGG'])); // 5
+// console.log(twoPluses(['GGGGGG', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
 // console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
 // console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 25
+console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 0
+console.log(twoPluses(['GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 45
+console.log(twoPluses(['GGGGGG', 'GGGGGG', 'BBBBBB', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 5
+console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBGBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 1
