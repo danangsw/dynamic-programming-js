@@ -83,39 +83,72 @@ function twoPluses(grid: string[]): number {
     for (let i = 0; i < glen; i++) {
         const items: number[] = [];
         for (let j = 0; j < ilen; j++) {
-            const cell = Math.min(left[i][j], up[i][j], right[i][j], down[i][j]);
+            let cell = Math.min(left[i][j], up[i][j], right[i][j], down[i][j]);
             items.push(cell);
             minCellSet.push(cell);
         }
         minGrid.push([...items])
     }
-    
-    console.log({ goodCells, minGrid })
 
-    let totalAreas = 1;
-    
-    // const maxPlus: number[] = minCellSet.sort();
-    // let limit = 2;
-    // for (let i = maxPlus.length - 1; i >= 0;){
-    //     const item = maxPlus[i] > 0 ? maxPlus[i] : 1;
-    //     totalAreas *= ((item - 1) * 4) + 1
+    minCellSet.sort((a, b) => b - a);
+    const intersectList: Set<string>[] = [];
+    for (let k = 0; k < minCellSet.length && intersectList.length < 2; k++) {
+        const mc = minCellSet[k];
+        let intersectSet = new Set<string>();
+        for (let i = 1; i < glen-1 && intersectSet.size === 0; i++) { 
+            const j = minGrid[i].indexOf(mc);
+            if (j > -1) { 
+                // RIGHT
+                for (let x = j; x < mc + j; x++) {   
+                    if (!setListHas(intersectList, `key_${i}_${x}`))
+                        intersectSet.add(`key_${i}_${x}`);
+                }
+                // LEFT
+                for (let x = j; x > j - mc; x--) {
+                    if (!setListHas(intersectList, `key_${i}_${x}`))
+                        intersectSet.add(`key_${i}_${x}`);
+                }
+                // UP
+                for (let x = i; x > i - mc; x--) {
+                    if (!setListHas(intersectList, `key_${x}_${j}`))
+                        intersectSet.add(`key_${x}_${j}`);
+                }
+                // DOWN
+                for (let x = i; x < mc + i; x++) {
+                    if (!setListHas(intersectList, `key_${x}_${j}`))
+                        intersectSet.add(`key_${x}_${j}`);
+                }
+                minGrid[i][j] = 0;
+                console.log({mc, intersectSet})
+            }
+        }
+        if (intersectSet.size === ((mc - 1) * 4) + 1 && intersectList.length < 2){ 
+            intersectList.push(intersectSet);
+        }
+    }
 
-    //     i -= (maxPlus[i] + 1);
-    //     limit--;
-    //     if (limit === 0) break;
-    // }
-    // console.log({ goodCells, right, down, left, up, minGrid, maxPlus, totalAreas })
+    console.log({ goodCells, minGrid, minCellSet, intersectList });
 
-    return totalAreas;
+    return (intersectList[0] ? intersectList[0].size : 1) * (intersectList[1] ? intersectList[1].size : 1);
+}
+
+function setListHas(list: Set<string>[], key:string):boolean { 
+    for (const set of list) {
+        if (set.has(key)) {
+            return true;
+        } 
+    }
+    return false;
 }
 
 // Drive code
 // console.log(twoPluses(['BBBGBBB', 'BBBGBBB', 'GGGGGGG', 'BBBGBBB', 'BBBGBBB', 'BBBGBBB']));
-console.log(twoPluses(['BBBGGB', 'GGBGGB', 'GGGGGG', 'GGBGGB', 'GGGGGG'])); // 5
+// console.log(twoPluses(['BBBGGB', 'GGBGGB', 'GGGGGG', 'GGBGGB', 'GGGGGG'])); // 9
 // console.log(twoPluses(['GGGGGG', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
 // console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
 // console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 
-// console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 0
-console.log(twoPluses(['GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 45
+// console.log(twoPluses(['BBGBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 0
+// console.log(twoPluses(['GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 45
 // console.log(twoPluses(['GGGGGG', 'GGGGGG', 'BBBBBB', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 5
 // console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBGBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 1
+console.log(twoPluses(['GGGGGGGG', 'GBGBGGBG', 'GBGBGGBG', 'GGGGGGGG', 'GBGBGGBG', 'GGGGGGGG', 'GBGBGGBG', 'GGGGGGGG'])); // 81
