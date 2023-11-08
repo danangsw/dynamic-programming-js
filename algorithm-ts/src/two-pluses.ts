@@ -1,5 +1,3 @@
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
-
 /**
  * https://www.hackerrank.com/challenges/two-pluses/problem
  * 
@@ -91,18 +89,21 @@ function twoPluses(grid: string[]): number {
         }
         minGrid.push([...items])
     }
+    
+    console.log({ goodCells, minGrid })
 
-    const maxPlus: number[] = minCellSet.sort();
     let totalAreas = 1;
-    let limit = 2;
-    for (let i = maxPlus.length - 1; i >= 0;){
-        const item = maxPlus[i] > 0 ? maxPlus[i] : 1;
-        totalAreas *= ((item - 1) * 4) + 1
+    
+    // const maxPlus: number[] = minCellSet.sort();
+    // let limit = 2;
+    // for (let i = maxPlus.length - 1; i >= 0;){
+    //     const item = maxPlus[i] > 0 ? maxPlus[i] : 1;
+    //     totalAreas *= ((item - 1) * 4) + 1
 
-        i -= (maxPlus[i] + 1);
-        limit--;
-        if (limit === 0) break;
-    }
+    //     i -= (maxPlus[i] + 1);
+    //     limit--;
+    //     if (limit === 0) break;
+    // }
     // console.log({ goodCells, right, down, left, up, minGrid, maxPlus, totalAreas })
 
     return totalAreas;
@@ -110,11 +111,11 @@ function twoPluses(grid: string[]): number {
 
 // Drive code
 // console.log(twoPluses(['BBBGBBB', 'BBBGBBB', 'GGGGGGG', 'BBBGBBB', 'BBBGBBB', 'BBBGBBB']));
-// console.log(twoPluses(['BBBGGB', 'GGBGGB', 'GGGGGG', 'GGBGGB', 'GGGGGG'])); // 5
+console.log(twoPluses(['BBBGGB', 'GGBGGB', 'GGGGGG', 'GGBGGB', 'GGGGGG'])); // 5
 // console.log(twoPluses(['GGGGGG', 'GBBBGB', 'GGGGGG', 'GGBBGB', 'GGGGGG'])); // 5
-console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
-console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 
-console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 0
+// console.log(twoPluses(['BGBBGB', 'GGGGGG', 'BGBBGB', 'GGGGGG', 'BGBBGB', 'BGBBGB'])); // 25
+// console.log(twoPluses(['BGBBRB', 'GRGGGG', 'BGBBGB', 'RGGGGG', 'BRBBGB', 'BGBBRB'])); // 
+// console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 0
 console.log(twoPluses(['GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 45
-console.log(twoPluses(['GGGGGG', 'GGGGGG', 'BBBBBB', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 5
-console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBGBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 1
+// console.log(twoPluses(['GGGGGG', 'GGGGGG', 'BBBBBB', 'GGGGGG', 'GGGGGG', 'GGGGGG'])); // 5
+// console.log(twoPluses(['BBBBBB', 'BBBBBB', 'BBGBBB', 'BBBBBB', 'BBBBBB', 'BBBBBB'])); // 1
