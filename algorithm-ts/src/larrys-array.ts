@@ -18,7 +18,24 @@
  * The function accepts INTEGER_ARRAY A as parameter.
  */
 
+// SUM Inversion solution
+// Count sum of all inversion number of each elements in matrix
+// If this sum is even, result is YES and vice versa
+
 function larrysArray(A: number[]): string {
     // Write your code here
-    return 'NO';
+    return A.reduce((sumA, valA, i) => {
+        return A.slice(i)
+            .reduce((sumAA, valAA) => {
+            return sumAA += valA > valAA ? 1 : 0;
+        }, sumA);
+    }, 0) % 2 === 0 ? 'YES' : 'NO';
 }
+
+// drive code
+console.log(larrysArray([1, 3, 7, 8, 6, 5, 4, 2])); // NO
+console.log(larrysArray([3, 1, 2])); // YES
+console.log(larrysArray([1, 3, 4, 2])); // YES
+console.log(larrysArray([1, 2, 3, 5, 4])); // NO
+console.log(larrysArray([1, 6, 5, 2, 3, 4])); // NO
+console.log(larrysArray([3, 1, 2, 4])); // YES
