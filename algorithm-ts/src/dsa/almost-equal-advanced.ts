@@ -11,7 +11,27 @@
 
 function solve(n: number, k: number, h: number[], queries: number[][]): number[] {
     // Write your code here
-    return [];
+    // const mapH:Map<number[], number> = new Map();
+
+    // for (const item of queries) {
+    //     mapH.set(item, 0);
+    // }
+
+    const res: number[] = [];
+    for (const q of queries) {
+        let r = 0
+        for (let i = q[0]; i <= q[1]; i++) {
+            for (let j = (i+1); j <= q[1]; j++) {
+                if (Math.abs(h[i] - h[j]) <= k)
+                    r++;
+            }            
+        }
+        res.push(r);
+    }
+
+    // console.log({ mapH });
+
+    return res;
 }
 
 console.log(solve(5, 2, [ 1, 3, 4, 3, 0 ], [ [ 0, 1 ], [ 1, 3 ], [ 0, 4 ] ])) // [1, 3, 6]
