@@ -22,8 +22,19 @@ function solve(n: number, k: number, h: number[], queries: number[][]): number[]
     // }
 
     const diffWeights: diff[] = [];
-    for (let i = 0; i < h.length; i++) {
-        for (let j = (i+1); j <= h.length; j++) {
+    for (let i = 0; i < Math.floor(h.length / 2); i++) {
+        for (let j = (i + 1); j < h.length; j++) {
+            if (Math.abs(h[i] - h[j]) <= k) {
+                const d: diff = {
+                    l: i,
+                    r: j
+                };
+                diffWeights.push(d);
+            }            
+        }
+    }
+    for (let i = Math.floor(h.length / 2); i < h.length; i++) {
+        for (let j = i + 1; j < h.length; j++) {
             if (Math.abs(h[i] - h[j]) <= k) {
                 const d: diff = {
                     l: i,
