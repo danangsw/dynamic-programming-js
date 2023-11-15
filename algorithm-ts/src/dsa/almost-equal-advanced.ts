@@ -9,6 +9,10 @@
  *  2. 2D_INTEGER_ARRAY queries
  */
 
+interface diff { 
+    l: number,
+    r: number
+}
 function solve(n: number, k: number, h: number[], queries: number[][]): number[] {
     // Write your code here
     // const mapH:Map<number[], number> = new Map();
@@ -17,16 +21,22 @@ function solve(n: number, k: number, h: number[], queries: number[][]): number[]
     //     mapH.set(item, 0);
     // }
 
-    const res: number[] = [];
-    for (const q of queries) {
-        let r = 0
-        for (let i = q[0]; i <= q[1]; i++) {
-            for (let j = (i+1); j <= q[1]; j++) {
-                if (Math.abs(h[i] - h[j]) <= k)
-                    r++;
+    const diffWeights: diff[] = [];
+    for (let i = 0; i < h.length; i++) {
+        for (let j = (i+1); j <= h.length; j++) {
+            if (Math.abs(h[i] - h[j]) <= k) {
+                const d: diff = {
+                    l: i,
+                    r: j
+                };
+                diffWeights.push(d);
             }            
         }
-        res.push(r);
+    }
+
+    const res: number[] = [];
+    for (const q of queries) {
+        res.push(diffWeights.filter(diff => diff.l >= q[0] && diff.r <= q[1]).length);
     }
 
     // console.log({ mapH });
