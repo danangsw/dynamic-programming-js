@@ -1,63 +1,85 @@
-class SegmentTree {
-    array: any;
-    tree: any
-    constructor(array: any) {
-        this.array = array;
-        this.tree = new Array(array.length * 4 - 1);
-        this.buildTree(0, 0, array.length - 1);
+// limit for array size 
+    let N = 100000;  
+        
+    let n = 0; // array size 
+        
+    // Max size of tree 
+    let tree = new Array(2 * N); 
+    tree.fill(0); 
+        
+    // function to build the tree 
+    function build(arr:number[])  
+    {  
+            
+        // insert leaf nodes in tree 
+        for (let i = 0; i < n; i++)  
+            tree[n + i] = arr[i]; 
+            
+        // build the tree by calculating 
+        // parents 
+        for (let i = n - 1; i > 0; --i) { 
+            const x = i << 1;
+            const y = i << 1 | 1;
+            const a = tree[x];
+            const b = tree[y]
+            const res = a + b
+            console.log({x, y, a, b, res});            
+            tree[i] = res;
+        }  
+
+        console.log({ tree });
+    } 
+        
+    // function to update a tree node 
+    function updateTreeNode(p:number, value:number)  
+    {  
+        // set value at position p 
+        tree[p + n] = value; 
+        p = p + n; 
+            
+        // move upward and update parents 
+        for (let i = p; i > 1; i >>= 1) 
+            tree[i >> 1] = tree[i] + tree[i^1]; 
+    } 
+        
+    // function to get sum on 
+    // interval [l, r) 
+    function query(l:number, r:number)  
+    {  
+        let res = 0; 
+            
+        // loop to find the sum in the range 
+        for (l += n, r += n; l < r;
+            l >>= 1, r >>= 1) 
+        { 
+            if ((l & 1) > 0)  
+                res += tree[l++]; 
+            
+            if ((r & 1) > 0)  
+                res += tree[--r]; 
+        } 
+            
+        return res; 
     }
-
-    buildTree(node: any, start: any, end: any):void {
-        if (start === end) {
-            this.tree[node] = this.array[start];
-            return;
-        }
-
-        const mid = Math.floor((start + end) / 2);
-        this.buildTree(2 * node + 1, start, mid);
-        this.buildTree(2 * node + 2, mid + 1, end);
-
-        this.tree[node] = Math.min(this.tree[2 * node + 1], this.tree[2 * node + 2]);
-    }
-
-    query(node: any, start: any, end: any, left: any, right: any): number {
-        if (start > right || end < left) {
-            return Infinity;
-        }
-
-        if (start >= left && end <= right) {
-            return this.tree[node];
-        }
-
-        const mid = Math.floor((start + end) / 2);
-        const leftValue = this.query(2 * node + 1, start, mid, left, right);
-        const rightValue = this.query(2 * node + 2, mid + 1, end, left, right);
-
-        return Math.min(leftValue, rightValue);
-    }
-}
-
-const heights = [ 1, 3, 4, 3, 0 ];
-const k = 2;
-const queries = [ [ 0, 1 ], [ 1, 3 ], [ 0, 4 ] ];
-
-const segmentTree = new SegmentTree(heights);
-
-console.log(segmentTree.array)
-
-for (const query of queries) {
-    const left = query[0];
-    const right = query[1];
-    let count = 0;
-
-    for (let i = left; i <= right; i++) {
-        for (let j = i + 1; j <= right; j++) {
-            const diff = Math.abs(heights[i] - heights[j]);
-            if (diff <= k) {
-                count++;
-            }
-        }
-    }
-
-    console.log(count);
-}
+      
+    let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; 
+        
+    // n is global 
+    n = a.length; 
+  
+    // build tree  
+    build(a); 
+  
+    // print the sum in range(1,2) 
+    // index-based 
+    console.log(query(1, 3)); 
+    console.log(query(0, 3)); 
+    console.log(query(10, 12)); 
+    console.log(query(8, 10)); 
+  
+    // // modify element at 2nd index 
+    // updateTreeNode(2, 1); 
+  
+    // // print the sum in range(1,2) 
+    // // index-based 
+    // console.log(query(1, 3));  
