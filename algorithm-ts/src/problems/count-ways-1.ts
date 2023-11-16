@@ -1,4 +1,5 @@
 /**
+ * WORK IN PROGRESS
  * https://www.hackerrank.com/challenges/count-ways-1/problem
  * 
  * Complete the 'countWays' function below.

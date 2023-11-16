@@ -1,3 +1,6 @@
+/**
+ * WORK IN PROGRESS
+ */
 // limit for array size 
     let N = 100000;  
         
@@ -22,8 +25,7 @@
             const y = i << 1 | 1;
             const a = tree[x];
             const b = tree[y]
-            const res = a + b
-            console.log({x, y, a, b, res});            
+            const res = Math.abs(a - b) <= 2 ? 1 : 0;
             tree[i] = res;
         }  
 
@@ -61,8 +63,9 @@
             
         return res; 
     }
-      
-    let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; 
+    
+    // [ 1, 3, 4, 3, 0 ]
+    let a = [ 1, 3, 4, 3, 0]; 
         
     // n is global 
     n = a.length; 
@@ -72,11 +75,9 @@
   
     // print the sum in range(1,2) 
     // index-based 
+    console.log(query(0, 2)); 
     console.log(query(1, 3)); 
-    console.log(query(0, 3)); 
-    console.log(query(10, 12)); 
-    console.log(query(8, 10)); 
-  
+    console.log(query(0, 4));
     // // modify element at 2nd index 
     // updateTreeNode(2, 1); 
   
